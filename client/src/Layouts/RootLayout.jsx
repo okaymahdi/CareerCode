@@ -4,11 +4,10 @@ import { Footer, NavBar } from '../Components/Index';
 const RootLayout = () => {
   return (
     <div>
-      RootLayout
       {/* Header */}
       <NavBar />
       {/* Main Outlet */}
-      <div className='min-h-[calc(100vh-600px)] mx-auto'>
+      <div className='min-h-[calc(100vh-306px)]'>
         <Outlet />
       </div>
       {/* Footer */}
