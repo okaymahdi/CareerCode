@@ -35,7 +35,7 @@ const SignUp = () => {
     /** Create User in Firebase */
     createUserWithEP(newFormData.email, newFormData.password)
       .then((result) => {
-        console.table(result.user);
+        console.log(result.user);
       })
       .catch((error) => {
         console.error(error);
@@ -47,7 +47,7 @@ const SignUp = () => {
         <div className='hero-content flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
             <Lottie
-              style={{ width: '100%' }}
+              style={{ width: '80%' }}
               animationData={signUpLottie}
               loop={true}
             />

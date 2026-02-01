@@ -1,30 +1,13 @@
 import { Link, NavLink } from 'react-router';
+import SignInButton from '../Ui/Buttons/SignInButton';
+import SignUpButton from '../Ui/Buttons/SignUpButton';
 
-const navItems = [
-  {
-    id: 1,
-    label: 'Home',
-    path: '/',
-  },
-  {
-    id: 2,
-    label: 'Sign Up',
-    path: '/signup',
-  },
-  {
-    id: 3,
-    label: 'Sign In',
-    path: '/signin',
-  },
-];
 const NavBar = () => {
   const navLinks = (
     <>
-      {navItems.slice(0, 1).map((item) => (
-        <li key={item.id}>
-          <NavLink to={item.path}>{item.label}</NavLink>
-        </li>
-      ))}
+      <li>
+        <NavLink to={'/'}>Home</NavLink>
+      </li>
     </>
   );
   return (
@@ -63,16 +46,13 @@ const NavBar = () => {
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>{navLinks}</ul>
       </div>
-      <div className='navbar-end'>
-        {navItems.slice(1, 2).map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className='btn'
-          >
-            {item.label}
-          </Link>
-        ))}
+      <div className='navbar-end space-x-1.5'>
+        <Link to={'/signin'}>
+          <SignInButton>Sign In</SignInButton>
+        </Link>
+        <Link to={'/signup'}>
+          <SignUpButton>Sign Up</SignUpButton>
+        </Link>
       </div>
     </div>
   );
