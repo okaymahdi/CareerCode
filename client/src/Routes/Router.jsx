@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import RootLayout from '../Layouts/RootLayout';
 import { HomePage, SignIn, SignUp } from '../Pages/Index';
+import AuthProvider from '../Provider/AuthProvider';
 
 const Router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const Router = createBrowserRouter([
 
 /** App Router */
 const AppRouter = () => {
-  return <RouterProvider router={Router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={Router} />
+    </AuthProvider>
+  );
 };
 export { AppRouter };

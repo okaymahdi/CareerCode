@@ -1,7 +1,34 @@
 import Lottie from 'lottie-react';
 import signUpLottie from '../../assets/Lotties/SignUp.json';
 
+const formFields = [
+  {
+    id: 1,
+    label: 'Name',
+    type: 'text',
+    name: 'name',
+  },
+  {
+    id: 2,
+    label: 'Email',
+    type: 'email',
+    name: 'email',
+  },
+  {
+    id: 3,
+    label: 'Image',
+    type: 'file',
+    name: 'image',
+  },
+];
 const SignUp = () => {
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const newFormData = Object.fromEntries(formData.entries());
+    console.log(newFormData);
+  };
   return (
     <>
       <div className='hero bg-base-200 min-h-screen'>
@@ -16,7 +43,7 @@ const SignUp = () => {
           <div className='card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl'>
             <div className='card-body'>
               <h1 className='text-5xl font-bold'>Register now!</h1>
-              <form>
+              <form onSubmit={handleSignUp}>
                 <fieldset className='fieldset'>
                   <label className='label'>Email</label>
                   <input
