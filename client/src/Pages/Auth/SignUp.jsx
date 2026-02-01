@@ -1,5 +1,7 @@
 import Lottie from 'lottie-react';
+import { use } from 'react';
 import signUpLottie from '../../assets/Lotties/SignUp.json';
+import { AuthContext } from '../../Context/AuthContext';
 
 const formFields = [
   {
@@ -22,12 +24,22 @@ const formFields = [
   },
 ];
 const SignUp = () => {
+  const { createUserWithEP } = use(AuthContext);
   const handleSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const newFormData = Object.fromEntries(formData.entries());
     console.log(newFormData);
+
+    /** Create User in Firebase */
+    createUserWithEP(newFormData.email, newFormData.password)
+      .then((result) => {
+        console.table(result.user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <>

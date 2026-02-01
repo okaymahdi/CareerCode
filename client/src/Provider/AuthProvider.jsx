@@ -1,3 +1,4 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { Auth } from '../Firebase/Firebase.config';
