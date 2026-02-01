@@ -1,25 +1,37 @@
 import Lottie from 'lottie-react';
+import { use } from 'react';
 import signInLottie from '../../assets/Lotties/SignIn.json';
+import { AuthContext } from '../../Context/AuthContext';
 const SignIn = () => {
+  const { signInUserWithEP } = use(AuthContext);
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const newFormData = Object.fromEntries(formData.entries());
     console.log(newFormData);
+
+    /** Create User in Firebase */
+    signInUserWithEP(newFormData.email, newFormData.password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <>
       <div className='hero bg-base-200 min-h-screen'>
         <div className='hero-content flex-col lg:flex-row-reverse '>
-          <div className='text-center lg:text-left'>
+          <div className='text-center lg:text-left lg:w-1/2 w-full flex justify-center items-center'>
             <Lottie
-              style={{ width: '100%' }}
               animationData={signInLottie}
               loop={true}
+              className='w-full max-w-lg'
             />
           </div>
-          <div className='card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl'>
+          <div className='card bg-base-100 max-w-sm shrink-0 shadow-2x'>
             <div className='card-body'>
               <h1 className='text-5xl font-bold'>Sign In now!</h1>
               <form onSubmit={handleSignIn}>
