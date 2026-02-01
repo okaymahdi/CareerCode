@@ -1,8 +1,21 @@
+import { use } from 'react';
 import { Link, NavLink } from 'react-router';
+import { AuthContext } from '../../Context/AuthContext';
 import SignInButton from '../Ui/Buttons/SignInButton';
 import SignUpButton from '../Ui/Buttons/SignUpButton';
 
 const NavBar = () => {
+  const { user, signOutUser } = use(AuthContext);
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        console.log('Signed Out');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   const navLinks = (
     <>
       <li>
@@ -47,12 +60,23 @@ const NavBar = () => {
         <ul className='menu menu-horizontal px-1'>{navLinks}</ul>
       </div>
       <div className='navbar-end space-x-1.5'>
-        <Link to={'/signin'}>
-          <SignInButton>Sign In</SignInButton>
-        </Link>
-        <Link to={'/signup'}>
-          <SignUpButton>Sign Up</SignUpButton>
-        </Link>
+        {user ? (
+          <button
+            onClick={handleSignOut}
+            className='btn btn-soft btn-secondary'
+          >
+            Sign Out
+          </button>
+        ) : (
+          <>
+            <Link to={'/signin'}>
+              <SignInButton>Sign In</SignInButton>
+            </Link>
+            <Link to={'/signup'}>
+              <SignUpButton>Sign Up</SignUpButton>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,13 +1,17 @@
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { Auth } from '../Firebase/Firebase.config';
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
   /** Create a New User in Firebase */
   const createUserWithEP = (email, password) => {
     setLoading(true);
@@ -20,10 +24,33 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(Auth, email, password);
   };
 
+  /** Sign Out User */
+  const signOutUser = () => {
+    setLoading(true);
+    return signOut(Auth);
+  };
+
+  /** Observer */
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(Auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const authInfo = {
     loading,
+    user,
     createUserWithEP,
     signInUserWithEP,
+    signOutUser,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
