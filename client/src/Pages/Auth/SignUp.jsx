@@ -2,6 +2,7 @@ import Lottie from 'lottie-react';
 import { use } from 'react';
 import signUpLottie from '../../assets/Lotties/SignUp.json';
 import { AuthContext } from '../../Context/AuthContext';
+import SocialLogin from './SocialLogin';
 
 const formFields = [
   {
@@ -77,6 +78,8 @@ const SignUp = () => {
                   <button className='btn btn-neutral mt-4'>Register</button>
                 </fieldset>
               </form>
+              {/* Social Login Buttons */}
+              <SocialLogin />
             </div>
           </div>
         </div>

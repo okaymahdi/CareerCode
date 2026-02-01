@@ -2,6 +2,7 @@ import Lottie from 'lottie-react';
 import { use } from 'react';
 import signInLottie from '../../assets/Lotties/SignIn.json';
 import { AuthContext } from '../../Context/AuthContext';
+import SocialLogin from './SocialLogin';
 const SignIn = () => {
   const { signInUserWithEP } = use(AuthContext);
   const handleSignIn = (e) => {
@@ -56,6 +57,8 @@ const SignIn = () => {
                   <button className='btn btn-neutral mt-4'>Sign In</button>
                 </fieldset>
               </form>
+              {/* Social Login Buttons */}
+              <SocialLogin />
             </div>
           </div>
         </div>
