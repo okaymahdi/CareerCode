@@ -1,22 +1,30 @@
 require('dotenv').config();
+const { default: chalk } = require('chalk');
 const app = require('./app');
-const { connectDB } = require('./config/database.js');
-const { setCollections } = require('./db/collections.js');
+const { connectDB } = require('./config/db.js');
 
 const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {
   try {
-    const client = await connectDB();
-    const myDB = client.db(process.env.MONGO_DATABASE_NAME);
+    // 1️⃣ Connect MongoDB
+    const db = await connectDB();
 
-    setCollections(myDB);
+    // 2️⃣ List collections
+    const collections = await db.listCollections().toArray();
+    console.log('📂 Collections in DB:');
+    collections.forEach((c) => console.log(' -', c.name));
 
-    app.listen(PORT, () =>
-      console.log(`🔥 Server running at http://localhost:${PORT}`),
-    );
+    // 3️⃣ Start Express server
+    app.listen(PORT, () => {
+      console.log(
+        chalk.magenta.bold(
+          `🔥 Career Code Server is Running at http://localhost:${PORT}`,
+        ),
+      );
+    });
   } catch (error) {
-    console.error('Error starting server:', error);
+    console.error(chalk.red('❌ Failed to start server:'), error);
     process.exit(1);
   }
 };

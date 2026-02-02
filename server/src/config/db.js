@@ -1,8 +1,11 @@
+const { default: chalk } = require('chalk');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER_NAME}.twf9mxl.mongodb.net/${process.env.MONGO_DATABASE_NAME}?retryWrites=true&w=majority`;
+/** MongoDB Connection URI */
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER_NAME}.twf9mxl.mongodb.net/${process.env.MONGO_DATABASE_NAME}?retryWrites=true&w=majority`;
 
-const client = new MongoClient(uri, {
+/** Mongo Client Setup */
+const client = new MongoClient(MONGODB_URI, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -10,26 +13,43 @@ const client = new MongoClient(uri, {
   },
 });
 
+let db; // 🔑 store DB instance globally
+
+/** Database Connection Function */
 const connectDB = async () => {
   try {
-    if (!client.topology?.isConnected()) {
-      await client.connect();
-      console.log('✅ Connected to MongoDB');
+    /** 🔗 Connect only once */
+    if (!db) {
+      await client.connect(); // connect once
 
-      // 🟢 Optional: startup ping
+      db = client.db(process.env.MONGO_DATABASE_NAME);
+
+      /** 🟢 Optional ping  */
       await client.db('admin').command({ ping: 1 });
-      console.log(
-        '✅ Pinged your deployment. You successfully connected to MongoDB!',
-      );
 
-      console.log(client.topology?.isConnected());
+      /** ✅ Successful Connection Logs */
+      console.log(
+        `\n🍃 ${chalk.green.bold('MongoDB')} Connected Successfully!`,
+      );
+      console.log(`🏷️ Cluster Host: ${chalk.yellow(client.options.srvHost)}`);
+      console.log(
+        `🕒 Connected At: ${chalk.cyan(new Date().toLocaleString())}\n`,
+      );
     }
 
-    return client; // 🔑 reuse everywhere
+    return db; // 🔑 important
   } catch (error) {
-    console.error('❌ Error connecting to MongoDB:', error);
-    throw error;
+    // ❌ Connection Failed Logs
+    console.error(
+      chalk.red.bold(`❌ MongoDB Connection Failed: ${error.message || error}`),
+    );
+    process.exit(1);
   }
 };
 
-module.exports = { connectDB };
+const getDB = () => {
+  if (!db) throw new Error('Database not connected. Call connectDB() first.');
+  return db;
+};
+
+module.exports = { connectDB, getDB };
