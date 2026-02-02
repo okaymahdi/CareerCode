@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import RootLayout from '../Layouts/RootLayout';
 import { HomePage, SignIn, SignUp } from '../Pages/Index';
 import AuthProvider from '../Provider/AuthProvider';
+import { JobDetails } from '../Components/Index';
 
 const Router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const Router = createBrowserRouter([
       {
         index: true,
         Component: HomePage,
+      },
+      {
+        path: '/jobs/:id',
+        Component: JobDetails,
       },
       {
         path: 'signup',
