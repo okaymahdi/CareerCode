@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const routes = require('./routes');
+
 const notFound = require('./middlewares/notFound.middleware');
 const errorHandler = require('./middlewares/error.middleware');
 
@@ -12,8 +12,6 @@ app.use(express.json());
 app.get('/', (_, res) => {
   res.send('🚀 Coffee Shop API is running!');
 });
-
-app.use(routes);
 
 /** 404 Middleware */
 app.use(notFound);

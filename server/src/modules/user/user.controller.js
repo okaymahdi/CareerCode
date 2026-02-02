@@ -1,5 +1,5 @@
-const asyncHandler = require('../../middlewares/async.middleware');
-const userService = require('./user.service');
+const asyncHandler = require('../../middlewares/async.middleware.js');
+const userService = require('./user.service.js');
 
 const createUser = async (req, res) => {
   const result = await userService.createUser(req.body);
@@ -7,20 +7,20 @@ const createUser = async (req, res) => {
 };
 
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await service.getAllUsers();
+  const users = await userService.getAllUsers();
   res.json(users);
 });
 
-const updateLastSignInTime = async (req, res) => {
+const updateLastSignInTime = asyncHandler(async (req, res) => {
   const { email, lastSignInTime } = req.body;
   const result = await userService.updateLastSignInTime(email, lastSignInTime);
   res.send(result);
-};
+});
 
-const deleteUser = async (req, res) => {
+const deleteUser = asyncHandler(async (req, res) => {
   const result = await userService.deleteUser(req.params.id);
   res.send(result);
-};
+});
 
 module.exports = {
   createUser,

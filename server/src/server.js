@@ -1,19 +1,23 @@
 require('dotenv').config();
 const app = require('./app');
-const { connectDB } = require('./config/database');
-const { setCollections } = require('./db/collections');
+const { connectDB } = require('./config/database.js');
+const { setCollections } = require('./db/collections.js');
 
 const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {
-  const client = await connectDB();
-  const db = client.db(process.env.MONGO_DATABASE_NAME);
+  try {
+    const client = await connectDB();
+    const myDB = client.db(process.env.MONGO_DATABASE_NAME);
 
-  setCollections(db);
+    setCollections(myDB);
 
-  app.listen(PORT, () =>
-    console.log(`🔥 Server running at http://localhost:${PORT}`),
-  );
+    app.listen(PORT, () =>
+      console.log(`🔥 Server running at http://localhost:${PORT}`),
+    );
+  } catch (error) {
+    console.error('Error starting server:', error);
+    process.exit(1);
+  }
 };
-
 startServer();

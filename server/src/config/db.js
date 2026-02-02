@@ -1,6 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER_NAME}.cxax6la.mongodb.net/${process.env.MONGO_DATABASE_NAME}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER_NAME}.twf9mxl.mongodb.net/${process.env.MONGO_DATABASE_NAME}?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -11,11 +11,25 @@ const client = new MongoClient(uri, {
 });
 
 const connectDB = async () => {
-  if (!client.topology?.isConnected()) {
-    await client.connect();
-    console.log('✅ MongoDB Connected');
+  try {
+    if (!client.topology?.isConnected()) {
+      await client.connect();
+      console.log('✅ Connected to MongoDB');
+
+      // 🟢 Optional: startup ping
+      await client.db('admin').command({ ping: 1 });
+      console.log(
+        '✅ Pinged your deployment. You successfully connected to MongoDB!',
+      );
+
+      console.log(client.topology?.isConnected());
+    }
+
+    return client; // 🔑 reuse everywhere
+  } catch (error) {
+    console.error('❌ Error connecting to MongoDB:', error);
+    throw error;
   }
-  return client;
 };
 
 module.exports = { connectDB };

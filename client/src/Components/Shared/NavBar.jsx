@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
 import SignInButton from '../Ui/Buttons/SignInButton';
 import SignUpButton from '../Ui/Buttons/SignUpButton';
+import { FaCentercode } from 'react-icons/fa';
 
 const NavBar = () => {
   const { user, signOutUser } = use(AuthContext);
@@ -54,7 +55,9 @@ const NavBar = () => {
             {navLinks}
           </ul>
         </div>
-        <a className='btn btn-ghost text-xl'>Career Code</a>
+        <a className='btn btn-ghost text-xl'>
+          Career <FaCentercode />
+        </a>
       </div>
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>{navLinks}</ul>
