@@ -65,7 +65,7 @@ const SignIn = () => {
                 </fieldset>
               </form>
               {/* Social Login Buttons */}
-              <SocialLogin />
+              <SocialLogin from={from} />
             </div>
           </div>
         </div>
