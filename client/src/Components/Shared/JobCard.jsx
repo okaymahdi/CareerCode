@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
-import { GiBriefcase } from 'react-icons/gi';
+import { GiBriefcase, GiDelicatePerfume } from 'react-icons/gi';
 import { Link } from 'react-router';
-
+import { MdSendTimeExtension } from 'react-icons/md';
 const JobCard = ({ job }) => {
   const [loaded, setLoaded] = useState(false);
   const {
@@ -92,18 +92,26 @@ const JobCard = ({ job }) => {
         </div>
 
         {/* Job Title */}
-        <div className='px-4 mb-2'>
+
+        <div className='px-4 mb-2 flex items-center gap-4'>
           {!loaded ? (
             <div className='h-5 w-40 bg-gray-700 rounded animate-pulse mb-1' />
           ) : (
-            <h6 className='text-white font-semibold text-sm'>
-              {title} <span className='badge badge-success'>{status}</span>
+            <h6 className='text-gray-100 font-semibold text-sm flex items-center gap-4'>
+              {title}{' '}
+              <div className='flex items-center gap-2 text-gray-500 border border-gray-200 rounded-full px-4 py-2'>
+                <div className='relative flex size-3.5 items-center justify-center'>
+                  <span className='absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75 animate-ping duration-300'></span>
+                  <span className='relative inline-flex size-2 rounded-full bg-indigo-600'></span>
+                </div>
+                <span>{status}</span>
+              </div>
             </h6>
           )}
         </div>
 
         {/* Job Type */}
-        <div className='px-4 mb-2'>
+        <div className='px-4 mb-2 flex items-center gap-4'>
           {!loaded ? (
             <div className='h-3 w-20 bg-gray-700 rounded animate-pulse' />
           ) : (
@@ -112,8 +120,12 @@ const JobCard = ({ job }) => {
               {jobType}
             </p>
           )}
+          <span className='text-gray-400 text-xs flex items-center gap-1'>
+            <MdSendTimeExtension size={16} />
+            {category}
+          </span>
         </div>
-        <span className='badge badge-outline'>{category}</span>
+
         {/* Description */}
         <div className='px-4 mb-4'>
           {!loaded ? (
@@ -123,7 +135,7 @@ const JobCard = ({ job }) => {
               <div className='h-3 w-10/12 bg-gray-700 rounded animate-pulse' />
             </>
           ) : (
-            <p className='text-gray-400 text-xs line-clamp-3'>{description}</p>
+            <p className='text-gray-200 text-xs line-clamp-3'>{description}</p>
           )}
         </div>
 
@@ -164,7 +176,7 @@ const JobCard = ({ job }) => {
                   <span className='text-gray-400 text-xs'> /Hour</span>
                 </div>
                 <Link to={`/jobs/${_id}`}>
-                  <button className='bg-indigo-500 text-white px-3 py-1 rounded text-xs hover:bg-indigo-600 transition'>
+                  <button className='bg-indigo-500 text-white px-4 py-2 rounded text-xs hover:bg-indigo-600 transition'>
                     Apply now
                   </button>
                 </Link>

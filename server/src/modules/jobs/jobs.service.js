@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const { jobsCollection } = require('./jobs.model');
 
 const getAllJobsService = async () => {
@@ -11,6 +12,20 @@ const getAllJobsService = async () => {
   }
 };
 
+/** Get job by id service */
+const getJobByIdService = async (id) => {
+  try {
+    const jobId = new ObjectId(id);
+    const query = { _id: jobId };
+    const job = await jobsCollection().findOne(query);
+    return job;
+  } catch (error) {
+    console.error('Error fetching job by id:', error);
+    throw error;
+  }
+};
+
 module.exports = {
   getAllJobsService,
+  getJobByIdService,
 };

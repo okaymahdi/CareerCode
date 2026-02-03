@@ -1,8 +1,12 @@
 const express = require('express');
+const {
+  getAllJobsController,
+  getJobByIdController,
+} = require('./jobs.controller');
 const jobRouter = express.Router();
-const jobsController = require('./jobs.controller');
 
 // CRUD routes
-jobRouter.get('/', jobsController.getAllJobsController);
+jobRouter.get('/', getAllJobsController);
+jobRouter.get('/:id', getJobByIdController);
 
 module.exports = jobRouter;
