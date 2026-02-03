@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import UseAuth from '../../Hooks/UseAuth';
@@ -32,13 +33,23 @@ const ApplyJob = () => {
       experience,
     };
     console.log(applyJob);
+
+    /** Apply Job in Database */
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/jobs/apply`, applyJob)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
   return (
     <>
       <h2 className='text-3xl font-bold mb-4 text-center'>
         Apply for This Job:
         <>
-          <Link to={`/job/${jobId}`}> Details</Link>
+          <Link to={`/jobs/${jobId}`}> Details</Link>
         </>
       </h2>
       <section className='bg-white dark:bg-gray-900'>
