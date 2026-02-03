@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
+import { JobDetails } from '../Components/Index';
 import RootLayout from '../Layouts/RootLayout';
 import { HomePage, SignIn, SignUp } from '../Pages/Index';
 import AuthProvider from '../Provider/AuthProvider';
-import { JobDetails } from '../Components/Index';
 
 const Router = createBrowserRouter([
   {
@@ -15,6 +15,8 @@ const Router = createBrowserRouter([
       },
       {
         path: '/jobs/:id',
+        loader: async ({ params }) =>
+          await fetch(`${import.meta.env.VITE_API_URL}/jobs/${params.id}`),
         Component: JobDetails,
       },
       {

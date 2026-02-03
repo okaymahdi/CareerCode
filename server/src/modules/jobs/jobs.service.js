@@ -15,8 +15,11 @@ const getAllJobsService = async () => {
 /** Get job by id service */
 const getJobByIdService = async (id) => {
   try {
-    const jobId = new ObjectId(id);
-    const query = { _id: jobId };
+    if (!ObjectId.isValid(id)) {
+      return null;
+    }
+    const query = { _id: new ObjectId(id) };
+
     const job = await jobsCollection().findOne(query);
     return job;
   } catch (error) {

@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
-import { GiBriefcase, GiDelicatePerfume } from 'react-icons/gi';
+import {
+  GiBriefcase,
+  GiDelicatePerfume,
+  GiSemiClosedEye,
+} from 'react-icons/gi';
 import { Link } from 'react-router';
 import { MdSendTimeExtension } from 'react-icons/md';
 const JobCard = ({ job }) => {
@@ -48,7 +52,7 @@ const JobCard = ({ job }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setVisible(true)}
       onMouseLeave={() => setVisible(false)}
-      className='relative w-80 h-96 rounded-xl p-px bg-gray-900 overflow-hidden shadow-lg cursor-pointer'
+      className='relative w-80  h-105 rounded-xl p-px bg-gray-900 overflow-hidden shadow-lg cursor-pointer'
     >
       {/* Glow */}
       <div
@@ -99,7 +103,7 @@ const JobCard = ({ job }) => {
           ) : (
             <h6 className='text-gray-100 font-semibold text-sm flex items-center gap-4'>
               {title}{' '}
-              <div className='flex items-center gap-2 text-gray-500 border border-gray-200 rounded-full px-4 py-2'>
+              <div className='flex items-center gap-2 text-gray-500 border border-indigo-400 rounded-full px-4 py-2'>
                 <div className='relative flex size-3.5 items-center justify-center'>
                   <span className='absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75 animate-ping duration-300'></span>
                   <span className='relative inline-flex size-2 rounded-full bg-indigo-600'></span>
@@ -176,8 +180,8 @@ const JobCard = ({ job }) => {
                   <span className='text-gray-400 text-xs'> /Hour</span>
                 </div>
                 <Link to={`/jobs/${_id}`}>
-                  <button className='bg-indigo-500 text-white px-4 py-2 rounded text-xs hover:bg-indigo-600 transition'>
-                    Apply now
+                  <button className='border border-indigo-400 active:scale-95 hover:bg-white/10 transition rounded-lg px-2 py-1.5 flex items-center'>
+                    <GiSemiClosedEye size={20} />
                   </button>
                 </Link>
               </div>
