@@ -37,11 +37,7 @@ const applyJobController = asyncHandler(async (req, res) => {
   const application = req.body;
   console.log(application);
   const result = await applicationsCollection.insertOne(application);
-  res.status(201).json({
-    message: 'Application submitted successfully',
-    applicationId: result.insertedId,
-    result,
-  });
+  res.send(result);
 });
 
 /** Export the applyJobController function */

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
+import Swal from 'sweetalert2';
 import UseAuth from '../../Hooks/UseAuth';
 
 const ApplyJob = () => {
@@ -39,6 +40,19 @@ const ApplyJob = () => {
       .post(`${import.meta.env.VITE_API_URL}/jobs/apply`, applyJob)
       .then((res) => {
         console.log(res.data);
+        if (res.data.insertedId) {
+          const localApplyDate = new Date(
+            new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
+          );
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Applied Successfully',
+            text: `Applied Successfully at ${localApplyDate}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       })
       .catch((err) => {
         console.error(err);
