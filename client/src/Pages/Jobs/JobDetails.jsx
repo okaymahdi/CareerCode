@@ -1,15 +1,23 @@
-import { useLoaderData } from 'react-router';
+import { FaArrowRightFromBracket, FaArrowRightLong } from 'react-icons/fa6';
+import { Link, useLoaderData } from 'react-router';
 
 const JobDetails = () => {
-  const job = useLoaderData();
-
-  if (!job) {
-    return (
-      <p className='text-center mt-20 text-gray-500 text-lg font-medium'>
-        Loading...
-      </p>
-    );
-  }
+  const {
+    _id,
+    title,
+    location,
+    jobType,
+    category,
+    salaryRange,
+    description,
+    company_logo,
+    company,
+    applicationDeadline,
+    responsibilities,
+    requirements,
+    hr_name,
+    hr_email,
+  } = useLoaderData();
 
   return (
     <section className='relative my-12 overflow-hidden'>
@@ -62,13 +70,13 @@ const JobDetails = () => {
           {/* Header */}
           <div className='flex items-center gap-4'>
             <img
-              src={job.company_logo}
-              alt={job.company}
+              src={company_logo}
+              alt={company}
               className='w-14 h-14 rounded-md object-cover bg-white'
             />
             <div>
-              <h2 className='text-2xl font-semibold'>{job.title}</h2>
-              <p className='text-slate-300'>{job.company}</p>
+              <h2 className='text-2xl font-semibold'>{title}</h2>
+              <p className='text-slate-300'>{company}</p>
             </div>
           </div>
 
@@ -76,33 +84,33 @@ const JobDetails = () => {
           <div className='grid grid-cols-2 md:grid-cols-4 gap-6 mt-6 text-sm'>
             <div>
               <p className='text-slate-400'>Location</p>
-              <p>{job.location}</p>
+              <p>{location}</p>
             </div>
             <div>
               <p className='text-slate-400'>Job Type</p>
-              <p>{job.jobType}</p>
+              <p>{jobType}</p>
             </div>
             <div>
               <p className='text-slate-400'>Category</p>
-              <p>{job.category}</p>
+              <p>{category}</p>
             </div>
             <div>
               <p className='text-slate-400'>Deadline</p>
-              <p>{job.applicationDeadline}</p>
+              <p>{applicationDeadline}</p>
             </div>
           </div>
 
           {/* Description */}
           <div className='mt-8'>
             <h3 className='text-lg font-medium mb-2'>Job Description</h3>
-            <p className='text-slate-300 leading-relaxed'>{job.description}</p>
+            <p className='text-slate-300 leading-relaxed'>{description}</p>
           </div>
 
           {/* Responsibilities */}
           <div className='mt-8'>
             <h3 className='text-lg font-medium mb-2'>Responsibilities</h3>
             <ul className='list-disc list-inside space-y-1 text-slate-300'>
-              {job.responsibilities.map((res, i) => (
+              {responsibilities.map((res, i) => (
                 <li key={i}>{res}</li>
               ))}
             </ul>
@@ -112,7 +120,7 @@ const JobDetails = () => {
           <div className='mt-8'>
             <h3 className='text-lg font-medium mb-2'>Requirements</h3>
             <div className='flex flex-wrap gap-2'>
-              {job.requirements.map((skill, i) => (
+              {requirements.map((skill, i) => (
                 <span
                   key={i}
                   className='px-3 py-1 border border-slate-500 rounded-full text-sm'
@@ -128,38 +136,26 @@ const JobDetails = () => {
             <div>
               <p className='text-slate-400'>Salary Range</p>
               <p className='text-lg font-medium'>
-                {job.salaryRange.min} – {job.salaryRange.max}{' '}
-                {job.salaryRange.currency.toUpperCase()}
+                {salaryRange.min} – {salaryRange.max}{' '}
+                {salaryRange.currency.toUpperCase()}
               </p>
             </div>
 
             <div>
               <p className='text-slate-400'>HR Contact</p>
-              <p>{job.hr_name}</p>
-              <p>{job.hr_email}</p>
+              <p>{hr_name}</p>
+              <p>{hr_email}</p>
             </div>
           </div>
 
           {/* Actions */}
           <div className='flex items-center gap-4 mt-8'>
-            <button className='flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 rounded-lg px-7 h-11'>
-              Apply Now
-              <svg
-                width='20'
-                height='20'
-                viewBox='0 0 20 20'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  d='M4.166 10h11.667m0 0L9.999 4.165m5.834 5.833-5.834 5.834'
-                  stroke='#fff'
-                  strokeWidth='1.8'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
-            </button>
+            <Link to={`/applyJob/${_id}`}>
+              <button className='flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 rounded-lg px-7 h-11'>
+                Apply Job
+                <FaArrowRightLong className='w-4 h-4' />
+              </button>
+            </Link>
 
             <button
               onClick={() => window.history.back()}

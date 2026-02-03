@@ -3,8 +3,14 @@ import { use } from 'react';
 import signInLottie from '../../assets/Lotties/SignIn.json';
 import { AuthContext } from '../../Context/AuthContext';
 import SocialLogin from './SocialLogin';
+import { useLocation, useNavigate } from 'react-router';
 const SignIn = () => {
   const { signInUserWithEP } = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state || '/';
+  console.log('location', from);
+
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -16,6 +22,7 @@ const SignIn = () => {
     signInUserWithEP(newFormData.email, newFormData.password)
       .then((result) => {
         console.log(result.user);
+        navigate(from);
       })
       .catch((error) => {
         console.error(error);
