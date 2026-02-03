@@ -15,7 +15,7 @@ app.get('/', (_, res) => {
 });
 
 /** Job Routes */
-app.use('/jobs', jobRouter);
+app.use('/', jobRouter);
 
 /** 404 Middleware */
 app.use(notFound);

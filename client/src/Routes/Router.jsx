@@ -14,7 +14,7 @@ const Router = createBrowserRouter([
         Component: HomePage,
       },
       {
-        path: '/jobs/:id',
+        path: '/job/:id',
         loader: async ({ params }) =>
           await fetch(`${import.meta.env.VITE_API_URL}/jobs/${params.id}`),
         Component: JobDetails,

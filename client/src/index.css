@@ -5,4 +5,31 @@
   button {
     @apply cursor-pointer;
   }
+  input {
+    @apply block w-full px-5 py-3 text-gray-700 bg-white border rounded-lg
+  focus:outline-none focus:ring focus:ring-blue-400;
+  }
+}
+
+@layer utilities {
+  .rainbow::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    background-size: 50% 30%;
+    filter: blur(6px);
+    background-image: linear-gradient(#ff0a7f, #780eff);
+    animation: rotate 4s linear infinite;
+  }
+
+  .input {
+    @apply block w-full px-5 py-3 text-gray-700 bg-white border rounded-lg
+  focus:outline-none focus:ring focus:ring-blue-400;
+  }
 }

@@ -6,7 +6,7 @@ const {
 const jobRouter = express.Router();
 
 // CRUD routes
-jobRouter.get('/', getAllJobsController);
-jobRouter.get('/:id', getJobByIdController);
+jobRouter.get('/jobs', getAllJobsController);
+jobRouter.get('/job/:id', getJobByIdController);
 
 module.exports = jobRouter;
