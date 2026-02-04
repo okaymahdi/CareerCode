@@ -56,9 +56,8 @@ const AddJob = () => {
     newJob.responsibilities = newJob.responsibilities
       .split(',')
       .map((responsibility) => responsibility.trim());
-    console.log(newJob);
-    console.log(requirementsDirty, requirementsClean);
   };
+
   return (
     <div className='my-12'>
       <h2 className='text-3xl'>Add Job</h2>
