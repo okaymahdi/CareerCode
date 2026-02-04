@@ -5,10 +5,6 @@
   button {
     @apply cursor-pointer;
   }
-  input {
-    @apply block w-full px-5 py-3 text-gray-700 bg-white border rounded-lg
-  focus:outline-none focus:ring focus:ring-blue-400;
-  }
 }
 
 @layer utilities {
@@ -26,10 +22,5 @@
     filter: blur(6px);
     background-image: linear-gradient(#ff0a7f, #780eff);
     animation: rotate 4s linear infinite;
-  }
-
-  .input {
-    @apply block w-full px-5 py-3 text-gray-700 bg-white border rounded-lg
-  focus:outline-none focus:ring focus:ring-blue-400;
   }
 }
