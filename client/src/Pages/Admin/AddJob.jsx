@@ -1,3 +1,5 @@
+import UseAuth from '../../Hooks/UseAuth';
+
 const currencies = [
   { code: 'USD', name: 'US Dollar' },
   { code: 'EUR', name: 'Euro' },
@@ -32,10 +34,30 @@ const currencies = [
 ];
 
 const AddJob = () => {
+  const { user } = UseAuth();
   const handleAddJob = (e) => {
     e.preventDefault();
     const form = e.target;
-    const form;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const { min, max, currency, ...newJob } = data;
+    /** Process Salary Range Data */
+    newJob.salaryRange = { min, max, currency };
+
+    /** Process Requirements Data */
+    const requirementsString = newJob.requirements;
+    const requirementsDirty = requirementsString.split(',');
+    const requirementsClean = requirementsDirty.map((requirement) =>
+      requirement.trim(),
+    );
+    newJob.requirements = requirementsClean;
+
+    /** Process Responsibilities Data */
+    newJob.responsibilities = newJob.responsibilities
+      .split(',')
+      .map((responsibility) => responsibility.trim());
+    console.log(newJob);
+    console.log(requirementsDirty, requirementsClean);
   };
   return (
     <div className='my-12'>
@@ -79,7 +101,7 @@ const AddJob = () => {
         </fieldset>
 
         {/* Job Type */}
-        <fieldset className='fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4'>
+        <fieldset className='fieldset bg-base-200 border-base-300 rounded-box w-xs border py-4 px-2'>
           <legend className='fieldset-legend'>Job Type</legend>
 
           <div className='filter'>
@@ -92,19 +114,22 @@ const AddJob = () => {
               className='btn'
               type='radio'
               name='jobType'
-              aria-label='On Site'
+              aria-label='On-Site'
+              value={'On Site'}
             />
             <input
               className='btn'
               type='radio'
               name='jobType'
               aria-label='Remote'
+              value={'Remote'}
             />
             <input
               className='btn'
               type='radio'
               name='jobType'
               aria-label='Hybrid'
+              value={'Hybrid'}
             />
           </div>
         </fieldset>
@@ -129,6 +154,7 @@ const AddJob = () => {
           <legend className='fieldset-legend'>Application Deadline</legend>
           <input
             type='date'
+            name='deadline'
             className='input'
           />
         </fieldset>
@@ -223,6 +249,7 @@ const AddJob = () => {
             type='email'
             className='input'
             name='hr_email'
+            defaultValue={user?.email}
             placeholder='HR Email'
           />
         </fieldset>
