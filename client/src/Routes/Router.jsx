@@ -1,6 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import RootLayout from '../Layouts/RootLayout';
-import { ApplyJob, HomePage, JobDetails, SignIn, SignUp } from '../Pages/Index';
+import {
+  ApplyJob,
+  HomePage,
+  JobDetails,
+  MyApplications,
+  SignIn,
+  SignUp,
+} from '../Pages/Index';
 import AuthProvider from '../Provider/AuthProvider';
 import PrivateRoute from './PrivateRoute';
 
@@ -20,11 +27,19 @@ const Router = createBrowserRouter([
         Component: JobDetails,
       },
       {
-        path: '/applyJob/:id',
+        path: '/applications/:id',
 
         element: (
           <PrivateRoute>
             <ApplyJob />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'myApplications',
+        element: (
+          <PrivateRoute>
+            <MyApplications />
           </PrivateRoute>
         ),
       },

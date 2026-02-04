@@ -1,9 +1,9 @@
 import { use } from 'react';
+import { FaCentercode } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
 import SignInButton from '../Ui/Buttons/SignInButton';
 import SignUpButton from '../Ui/Buttons/SignUpButton';
-import { FaCentercode } from 'react-icons/fa';
 
 const NavBar = () => {
   const { user, signOutUser } = use(AuthContext);
@@ -22,6 +22,13 @@ const NavBar = () => {
       <li>
         <NavLink to={'/'}>Home</NavLink>
       </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to={'/myApplications'}>My Applications</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (

@@ -25,7 +25,7 @@ const ApplyJob = () => {
 
     const applyJob = {
       jobId,
-      applicantBy: user.email,
+      applicant: user.email,
       linkedIn,
       gitHub,
       phoneNumber,
@@ -37,7 +37,7 @@ const ApplyJob = () => {
 
     /** Apply Job in Database */
     axios
-      .post(`${import.meta.env.VITE_API_URL}/jobs/apply`, applyJob)
+      .post(`${import.meta.env.VITE_API_URL}/applications`, applyJob)
       .then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
@@ -227,7 +227,10 @@ const ApplyJob = () => {
                   />
                 </div>
 
-                <button className='flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50'>
+                <button
+                  type='submit'
+                  className='flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50'
+                >
                   <span> Submit Application</span>
 
                   <svg
@@ -242,6 +245,13 @@ const ApplyJob = () => {
                       clipRule='evenodd'
                     />
                   </svg>
+                </button>
+                <button
+                  type='button'
+                  onClick={() => window.history.back()}
+                  className='border border-slate-400 hover:bg-white/10 active:scale-95 rounded-lg px-8 h-11'
+                >
+                  Back
                 </button>
               </form>
             </div>

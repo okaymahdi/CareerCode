@@ -150,7 +150,7 @@ const JobDetails = () => {
 
           {/* Actions */}
           <div className='flex items-center gap-4 mt-8'>
-            <Link to={`/applyJob/${_id}`}>
+            <Link to={`/applications/${_id}`}>
               <button className='flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 rounded-lg px-7 h-11'>
                 Apply Job
                 <FaArrowRightLong className='w-4 h-4' />

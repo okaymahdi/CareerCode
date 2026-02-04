@@ -40,9 +40,36 @@ const applyJobController = asyncHandler(async (req, res) => {
   res.send(result);
 });
 
+/** Applicant query controller */
+const applicantQueryController = asyncHandler(async (req, res) => {
+  const db = getDB();
+  const applicationsCollection = db.collection('applications');
+  const email = req.query.email;
+
+  const query = {
+    applicant: email,
+  };
+  console.log(query);
+  const cursor = applicationsCollection.find(query);
+
+  const result = await cursor.toArray();
+
+  for (const application of result) {
+    const jobsCollection = db.collection('jobs');
+    const jobId = application.jobId;
+    const jobQuery = { _id: new ObjectId(jobId) };
+    const job = await jobsCollection.findOne(jobQuery);
+    application.company = job.company;
+    application.title = job.title;
+    application.company_logo = job.company_logo;
+  }
+  res.send(result);
+});
+
 /** Export the applyJobController function */
 module.exports = {
   getAllJobsController,
   getJobByIdController,
   applyJobController,
+  applicantQueryController,
 };
