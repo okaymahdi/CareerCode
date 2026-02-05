@@ -15,7 +15,15 @@ const addJobController = asyncHandler(async (req, res) => {
 const getAllJobsController = asyncHandler(async (req, res) => {
   const db = getDB();
   const jobsCollection = db.collection('jobs');
-  const cursor = jobsCollection.find();
+
+  /** Query with Email */
+  const email = req.query.email;
+  const query = {};
+  if (email) {
+    query.hr_email = email;
+  }
+  // const query = email ? { email } : {};
+  const cursor = jobsCollection.find(query);
   const jobs = await cursor.toArray();
   res.send(jobs);
 });

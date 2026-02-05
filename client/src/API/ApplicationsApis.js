@@ -1,7 +1,8 @@
-const myApplicationsPromise = (email) => {
-  return fetch(
+const myApplicationsPromise = async (email) => {
+  const res = await fetch(
     `${import.meta.env.VITE_API_URL}/applications?email=${email}`,
-  ).then((res) => res.json());
+  );
+  return await res.json();
 };
 
 export { myApplicationsPromise };
