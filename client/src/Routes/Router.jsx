@@ -6,6 +6,7 @@ import {
   HomePage,
   JobDetails,
   MyApplications,
+  MyPostedJobs,
   SignIn,
   SignUp,
 } from '../Pages/Index';
@@ -49,6 +50,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddJob />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'myPostedJobs',
+        element: (
+          <PrivateRoute>
+            <MyPostedJobs />
           </PrivateRoute>
         ),
       },

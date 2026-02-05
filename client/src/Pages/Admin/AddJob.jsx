@@ -130,7 +130,7 @@ const AddJob = () => {
           <input
             type='text'
             className='input'
-            name='logo'
+            name='company_logo'
             placeholder='Logo'
           />
         </fieldset>

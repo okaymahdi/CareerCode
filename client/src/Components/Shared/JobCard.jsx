@@ -23,6 +23,7 @@ const JobCard = ({ job }) => {
     hr_email,
     hr_name,
     company_logo,
+    logo,
   } = job || {};
 
   const [visible, setVisible] = useState(false);
@@ -71,7 +72,7 @@ const JobCard = ({ job }) => {
             <div className='w-16 h-16 bg-gray-700 rounded-full animate-pulse' />
           ) : (
             <img
-              src={company_logo}
+              src={company_logo || logo}
               alt={company}
               className='w-16 h-16 rounded-full bg-white p-1'
             />

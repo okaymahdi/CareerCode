@@ -1,8 +1,9 @@
 import { use } from 'react';
-import JobRow from './JobRow';
+import { JobRow } from '../Index';
 
 const ApplicationsList = ({ myApplicationsPromise }) => {
   const applications = use(myApplicationsPromise);
+  console.log(applications);
 
   return (
     <div>

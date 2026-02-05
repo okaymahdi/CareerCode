@@ -1,6 +1,8 @@
 import { Suspense } from 'react';
-import { ApplicationsList, ApplicationStats } from '../../Components/Index';
+
 import UseAuth from '../../Hooks/UseAuth';
+
+import { ApplicationsList, ApplicationStats } from '../../Components/Index';
 import { myApplicationsPromise } from '../../API/ApplicationsApis';
 
 const MyApplications = () => {
