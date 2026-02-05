@@ -1,3 +1,5 @@
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import UseAuth from '../../Hooks/UseAuth';
 
 const currencies = [
@@ -53,24 +55,58 @@ const AddJob = () => {
     newJob.requirements = requirementsClean;
 
     /** Process Responsibilities Data */
-    newJob.responsibilities = newJob.responsibilities
-      .split(',')
-      .map((responsibility) => responsibility.trim());
+    const responsibilitiesString = newJob.responsibilities;
+    const responsibilitiesDirty = responsibilitiesString.split(',');
+    const responsibilitiesClean = responsibilitiesDirty.map((responsibility) =>
+      responsibility.trim(),
+    );
+    newJob.responsibilities = responsibilitiesClean;
+
+    /** Job Status */
+    newJob.status = 'active';
+
+    /** Data Length Check */
+    const dataLength = Object.keys(newJob).length;
+    console.log(dataLength);
+
+    /** Send Data to Server & Save Job to The Database */
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/jobs`, newJob)
+      .then((response) => {
+        if (response.data.insertedId) {
+          /** Show Success Message */
+          const localApplyDate = new Date(
+            new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
+          );
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Job Added Successfully',
+            text: `Job Added Successfully at ${localApplyDate}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          form.reset();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
-    <div className='my-12'>
+    <div className='my-12 w-full flex flex-col justify-center items-center'>
       <h2 className='text-3xl'>Add Job</h2>
       <form onSubmit={handleAddJob}>
         {/* Basic Info */}
-        <fieldset className='fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4'>
+        <fieldset className='fieldset bg-base-200 border-base-300 rounded-box w-xs p-4'>
           <legend className='fieldset-legend'>Basic Info</legend>
 
           <label className='label'>Job Title</label>
           <input
             type='text'
             className='input'
-            name='job_title'
+            name='title'
             placeholder='Enter Your Job Title'
           />
 
@@ -78,7 +114,7 @@ const AddJob = () => {
           <input
             type='text'
             className='input'
-            name='company_name'
+            name='name'
             placeholder='Enter Your Company Name'
           />
 
@@ -140,6 +176,7 @@ const AddJob = () => {
           <select
             defaultValue='Job Category'
             className='select'
+            name='category'
           >
             <option disabled={true}>Job Category</option>
             <option>Engineering</option>

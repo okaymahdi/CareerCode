@@ -4,6 +4,7 @@ const cors = require('cors');
 const notFound = require('./middlewares/notFound.middleware');
 const errorHandler = require('./middlewares/error.middleware');
 const { jobRouter } = require('./routes/job.routes');
+const { applicationRouter } = require('./routes/applications.routes');
 
 const app = express();
 
@@ -16,6 +17,9 @@ app.get('/', (_, res) => {
 
 /** Job Routes */
 app.use('/', jobRouter);
+
+/** Application Routes */
+app.use('/', applicationRouter);
 
 /** 404 Middleware */
 app.use(notFound);
